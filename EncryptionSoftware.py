@@ -1,22 +1,7 @@
-"""
-Bugs:
-
-    > Bug 13.1 :
-
-        Status      :   Fixed (on 22-07-2020)
-
-        Goal        :   To ensure that all the three keys are different.
-
-        Description :   There is some possibility that two or all three keys can be same. This 
-                        will weaken the encryption.
-
-"""
-
-
-
 import random
 
 class Encryption:
+    key = 0
     alphabetUC = "" 
     alphabetLC = ""
     shiftedAlphabetUC = ""
@@ -29,9 +14,6 @@ class Encryption:
         self.shiftedAlphabetLC = self.alphabetLC[key:] + self.alphabetLC[:key]
 
     def encrypt(self, msg):
-        '''msg = []
-        for ch in message:
-            msg.append(ch)'''
         for i in range(0, len(msg), 1):
             currChar = msg[i]
             if currChar.isalpha():
@@ -68,7 +50,7 @@ def encrypt3Keys(input, key1, key2, key3):
     enObj2 = Encryption(key2)
     enObj3 = Encryption(key3)
     encrypted = []
-    for char in input:                 #convert to list
+    for char in input:
         encrypted.append(char)
     turn = 1
     for i in range(0,len(encrypted),1):
@@ -106,12 +88,12 @@ def combineKeys(key1, key2, key3):
 
 
 def choseToEncrypt():
-    key1 = keyGenerate(1, 25)                                  #Bug 13.1    Status: Fixed
-    key2 = keyGenerate(1, 25)                                  #Bug 13.1    Status: Fixed
-    key3 = keyGenerate(1, 25)                                  #Bug 13.1    Status: Fixed
     while True:
+        key1 = keyGenerate(1, 25)
+        key2 = keyGenerate(1, 25)
+        key3 = keyGenerate(1, 25)
         if key1 != key2 and key1 != key3 and key2 != key3:
-            break  
+            break 
     combinedkey = combineKeys(key1, key2, key3)
     userInput = input("Enter your message: ")
     print("Your key is :", combinedkey,"\n")
@@ -128,7 +110,7 @@ def splitKey(key):
 def choseToDecrypt():
     threeKeys = input("Enter your key: ")
     key1, key2, key3 = splitKey(threeKeys)
-    if key1>26 or key2>26 or key3>26:
+    if (key1>26 or key1<0) or (key2>26 or key2<0) or (key3>26 or key3<0):
         print("Invalid Key")
         return 
     else:
@@ -140,13 +122,13 @@ def choseToDecrypt():
 
 repeat = 1
 while repeat==1:
-    choice1 = input("Press 1 to encrypt or 0 to decrypt: ")
-    if choice1=='1':
+    choice1 = input("Press 0 to encrypt or 1 to decrypt: ")
+    if choice1=='0':
         choseToEncrypt()
-    elif choice1=='0':
+    elif choice1=='1':
         choseToDecrypt()
     else:
         print("Invalid Choice")
-    choice2 = input("Press 'y' to continue or any other key to quit: ")
+    choice2 = input("Press 'Y' to continue or any other key to quit: ")
     if not(choice2=='y' or choice2=='Y'):
         repeat=0
