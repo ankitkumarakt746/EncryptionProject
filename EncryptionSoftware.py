@@ -1,4 +1,7 @@
+import os
 import random
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 
 class Encryption:
     key = 0
@@ -87,7 +90,12 @@ def combineKeys(key1, key2, key3):
     return k1+k2+k3
 
 
-def choseToEncrypt():
+def choseToEncrypt_manually():
+    os.system('cls')
+    print('''--------------------------------------------------------------------
+|                Encryption Services - Manual Mode                 |
+--------------------------------------------------------------------
+''')
     while True:
         key1 = keyGenerate(1, 25)
         key2 = keyGenerate(1, 25)
@@ -96,8 +104,10 @@ def choseToEncrypt():
             break 
     combinedkey = combineKeys(key1, key2, key3)
     userInput = input("Enter your message: ")
-    print("Your key is :", combinedkey,"\n")
-    print("Your encrypted message:\n", encrypt3Keys(userInput, key1, key2, key3))
+    print("\nYour key is:", combinedkey,"\n")
+    print("Your encrypted message:\n")
+    print(encrypt3Keys(userInput, key1, key2, key3))
+    input("\n\nPress enter to continue...")
 
 
 def splitKey(key):
@@ -107,28 +117,163 @@ def splitKey(key):
     return key1, key2, key3
 
 
-def choseToDecrypt():
+def choseToDecrypt_manually():
+    os.system('cls')
+    print('''--------------------------------------------------------------------
+|                Decryption Services - Manual Mode                 |
+--------------------------------------------------------------------
+''')
     threeKeys = input("Enter your key: ")
     key1, key2, key3 = splitKey(threeKeys)
     if (key1>26 or key1<0) or (key2>26 or key2<0) or (key3>26 or key3<0):
         print("Invalid Key")
         return 
     else:
-        msg = input("Enter you message: ")
-        print("Your decrypted message:\n", encrypt3Keys(msg, key1, key2, key3))
+        msg = input("\nEnter you message: ")
+        print("\nYour decrypted message:\n")
+        print(encrypt3Keys(msg, key1, key2, key3))
+
+    input("\n\nPress enter to continue...")
+
+
+def chooseToDecrypt_file():
+    os.system('cls')
+    print('''--------------------------------------------------------------------
+|                Decryption Services - File Mode                   |
+--------------------------------------------------------------------
+''')
+
+    threeKeys = input("Enter your key: ")
+    key1, key2, key3 = splitKey(threeKeys)
+    if (key1>26 or key1<0) or (key2>26 or key2<0) or (key3>26 or key3<0):
+        print("Invalid Key")
+        return
+    else:
+        print('''\nSelect file... 
+Selected file: ''', end='')
+    Tk().withdraw()
+    filename = askopenfilename()
+    print(filename, '\n')
+
+    text_file = open(filename, 'r')
+    data = text_file.read()
+    text_file.close()
+
+    data = encrypt3Keys(data, key1, key2, key3)
+    
+    text_file = open(filename, 'w')
+    text_file.write(data)
+    text_file.close()
+
+    print('Your file has been decrypted.\n')
+    input("\n\nPress enter to continue...")
+
+
+def chooseToEncrypt_file():
+    os.system('cls')
+    print('''--------------------------------------------------------------------
+|                Encryption Services - File Mode                   |
+--------------------------------------------------------------------
+''')
+    print('''Select file... 
+Selected file: ''', end='')
+    Tk().withdraw()
+    filename = askopenfilename()
+    print(filename, '\n')
+
+    text_file = open(filename, 'r')
+    data = text_file.read()
+    text_file.close()
+    
+    while True:
+        key1 = keyGenerate(1, 25)
+        key2 = keyGenerate(1, 25)
+        key3 = keyGenerate(1, 25)
+        if key1 != key2 and key1 != key3 and key2 != key3:
+            break
+    
+    combinedkey = combineKeys(key1, key2, key3)
+    print("Your key is:", combinedkey,"\n")
+    data = encrypt3Keys(data, key1, key2, key3)
+    
+    text_file = open(filename, 'w')
+    text_file.write(data)
+    text_file.close()
+    print('Your file has been encrypted.\n')
+    input("\n\nPress enter to continue...")
 
 
 #******************************************** Main Program Starts ****************************************************
 
-repeat = 1
-while repeat==1:
-    choice1 = input("Press 0 to encrypt or 1 to decrypt: ")
-    if choice1=='0':
-        choseToEncrypt()
-    elif choice1=='1':
-        choseToDecrypt()
+while True:
+    os.system('cls')
+    os.system('color E')
+    print('''--------------------------------------------------------------------
+|                             Welcome                              |
+--------------------------------------------------------------------
+''')
+    choice1 = int(input('''Available Services:
+    
+    Press 1: To Encrypt
+    Press 2: To Decrypt
+
+    Press 0: To Exit
+    
+    Enter your choice here: '''))
+
+    if choice1 == 0:
+        os.system('cls')
+        break
+
+    elif choice1 == 1:
+        while True:
+            os.system('cls')
+            os.system('color B')
+            print('''--------------------------------------------------------------------
+|                       Encryption Services                        |
+--------------------------------------------------------------------
+''')
+            choice2 = int(input('''Supported Modes:
+    
+    Press 1: To enter message manually
+    Press 2: To select a text file
+
+    Press 0: To get back to the Main Menu
+    
+    Enter your choice here: '''))
+            if choice2 == 0:
+                break
+            elif choice2 == 1:
+                choseToEncrypt_manually()
+            elif choice2 == 2:
+                chooseToEncrypt_file()
+            else:
+                print("Error! Couldn't recoganize your choice. Try again.")
+    
+    elif choice1 == 2:
+        while True:
+            os.system('cls')
+            os.system('color A')
+            print('''--------------------------------------------------------------------
+|                       Decryption Services                        |
+--------------------------------------------------------------------
+''')
+            choice2 = int(input('''Supported Modes:
+    
+    Press 1: To enter message manually
+    Press 2: To select a text file
+
+    Press 0: To get back to the Main Menu
+    
+    Enter your choice here: '''))
+            if choice2 == 0:
+                break
+            elif choice2 == 1:
+                choseToDecrypt_manually()
+            elif choice2 == 2:
+                chooseToDecrypt_file()
+            else:
+                print("Error! Couldn't recoganize your choice. Try again.")
+
     else:
-        print("Invalid Choice")
-    choice2 = input("Press 'Y' to continue or any other key to quit: ")
-    if not(choice2=='y' or choice2=='Y'):
-        repeat=0
+        print("Error! Couldn't recoganize your choice. Try again.")
