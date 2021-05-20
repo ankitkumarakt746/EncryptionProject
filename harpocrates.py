@@ -124,11 +124,75 @@ def choseToDecrypt_manually():
     obj = Summon()
     isValid = obj.validateKeys(userKeys)
     if isValid == False:
+        os.system("color C")
+        print("\nError: Invalid Keys\n\nPress any key to continue...")
+        input()
         return
     obj.useKey(userKeys)
     msg = input("\nEnter you message: ")
     print("\nYour decrypted message:\n")
     print(obj.encryptWithKeys(msg))
+    input("\n\nPress enter to continue...")
+
+def chooseToEncrypt_file():
+    os.system('cls')
+    print('''--------------------------------------------------------------------
+|                Encryption Services - File Mode                   |
+--------------------------------------------------------------------
+''')
+    print('''Select file... 
+Selected file: ''', end='')
+    Tk().withdraw()
+    filename = askopenfilename()
+    print(filename, '\n')
+
+    text_file = open(filename, 'r')
+    data = text_file.read()
+    text_file.close()
+
+    obj = Summon()
+    obj.generateKey(12, 1, 26)
+    print("\nYour key is:", obj.getKey(),"\n")
+    data = obj.encryptWithKeys(data)
+
+    text_file = open(filename, 'w')
+    text_file.write(data)
+    text_file.close()
+    print('Your file has been encrypted.\n')
+    input("\n\nPress enter to continue...")
+
+
+def chooseToDecrypt_file():
+    os.system('cls')
+    print('''--------------------------------------------------------------------
+|                Decryption Services - File Mode                   |
+--------------------------------------------------------------------
+''')
+    userKeys = input("Enter your key: ")
+    obj = Summon()
+    isValid = obj.validateKeys(userKeys)
+    if isValid == False:
+        os.system("color C")
+        print("\nError: Invalid Keys\n\nPress any key to continue...")
+        input()
+        return
+    obj.useKey(userKeys)
+
+    print('''\nSelect file... 
+Selected file: ''', end='')
+    Tk().withdraw()
+    filename = askopenfilename()
+    print(filename, '\n')
+
+    text_file = open(filename, 'r')
+    data = text_file.read()
+    text_file.close()
+    data = obj.encryptWithKeys(data)
+
+    text_file = open(filename, 'w')
+    text_file.write(data)
+    text_file.close()
+    print('Your file has been decrypted.\n')
     input("\n\nPress enter to continue...")
 
 
