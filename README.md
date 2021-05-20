@@ -7,4 +7,6 @@ In the main menu it provides two services i.e. encryption and decryption. Each s
 ![image](https://user-images.githubusercontent.com/62370285/118925089-b97be880-b95b-11eb-87d8-be78ce564555.png)
 
 
-Note: The program is capable only to encrypt alphabets.
+Note: 
+1. The program is capable only to encrypt alphabets.
+2. Be careful if you're copy-pasting in the CLI and avoid copy-pasting any extra spaces or line breaks.
