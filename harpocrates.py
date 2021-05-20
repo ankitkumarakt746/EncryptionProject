@@ -29,7 +29,7 @@ class Encryption:
 
 #*************************************** End of Encryption Class **************************************************** 
 
-class Key:
+class Summon:
     bunch = {}
 
     def generateKey(self, n, start, stop):  #stop = 26 as it'll run till 25 
@@ -46,7 +46,6 @@ class Key:
         for i in range(0, len(allKeys), 2):
             self.bunch['k'+str(j)] = 26 - int(allKeys[i:i+2])
             j += 1
-        print(self.bunch)
 
     def listToString(self, s):
         result = ""
@@ -83,8 +82,54 @@ class Key:
                 result += "-"
         return result
 
+    def validateKeys(self, allKeys):
+        if "-" in allKeys:
+            temp = allKeys.split("-")
+            allKeys = "".join(temp)
+        if allKeys.isdigit():
+            if len(allKeys)!=24:
+                return False
+            for i in range(0, len(allKeys), 2):
+                if int(allKeys[i:i+2])>26:
+                    return False
+            return True
+        else:
+            return False
+
+
 #*************************************** End of Key Class ****************************************************
 
+def choseToEncrypt_manually():
+    os.system('cls')
+    print('''--------------------------------------------------------------------
+|                Encryption Services - Manual Mode                 |
+--------------------------------------------------------------------
+''')
+    obj = Summon()
+    obj.generateKey(12, 1, 26)
+    userInput = input("Enter your message: ")
+    print("\nYour key is:", obj.getKey(),"\n")
+    print("Your encrypted message:\n")
+    print(obj.encryptWithKeys(userInput))
+    input("\n\nPress enter to continue...")
+
+
+def choseToDecrypt_manually():
+    os.system('cls')
+    print('''--------------------------------------------------------------------
+|                Decryption Services - Manual Mode                 |
+--------------------------------------------------------------------
+''')
+    userKeys = input("Enter your key: ")
+    obj = Summon()
+    isValid = obj.validateKeys(userKeys)
+    if isValid == False:
+        return
+    obj.useKey(userKeys)
+    msg = input("\nEnter you message: ")
+    print("\nYour decrypted message:\n")
+    print(obj.encryptWithKeys(msg))
+    input("\n\nPress enter to continue...")
 
 
 #******************************************** Main Program Starts ****************************************************
