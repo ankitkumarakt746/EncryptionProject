@@ -9,4 +9,4 @@ In the main menu it provides two services i.e. encryption and decryption. Each s
 
 Note: 
 1. The program is capable only to encrypt alphabets.
-2. Be careful if you're copy-pasting in the CLI and avoid copy-pasting any extra spaces or line breaks else it'll cause unexpected failures.
+2. Be careful if you're copy-pasting in the CLI and avoid copy-pasting any extra spaces or line breaks, else it'll cause unexpected failure.
