@@ -1,5 +1,5 @@
 # EncryptionProject
-The aim of this project is to add an extra layer of security to the users messages. It's inspired from Caesar's Cipher. 
+Harpocrates is an encryption software project that provides an extra layer of security to the user's data. It's inspired from Caesar's Cipher. The main aim was to apply computational thinking to create a cipher algorithm capable of encrypting and decrypting the provided data with a key.
 
 In the main menu it provides two services i.e. encryption and decryption. Each service operates further in two different modes i.e. manual and file mode. Upon encryption, a 24 digit unique key is generated and is required for decryption in future. Without the key, the data can't be encrypted. Also, there are 2.49 quadrillion key combinations that make it hard to break by brute-forcing.
 
