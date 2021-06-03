@@ -99,8 +99,22 @@ class Summon:
 
 #*************************************** End of Key Class ****************************************************
 
+
+def clearSrc():
+    os.system('clear' if os.name == 'posix' else 'cls')
+
+
+def color(value):
+    winToLin = {"0": "0", "1": "4", "2": "2", "3": "6", "4": "1", "5": "5", "6": "3", "7": "7", 
+                "8": "0", "9": "4", "A": "2", "B": "6", "C": "1", "D": "5", "E": "3", "F": "7"}
+    if os.name == "posix":
+        os.system('tput setaf ' + winToLin[value])
+    else:
+        os.system('color ' + value)
+
+
 def choseToEncrypt_manually():
-    os.system('cls')
+    clearSrc()
     print('''--------------------------------------------------------------------
 |                Encryption Services - Manual Mode                 |
 --------------------------------------------------------------------
@@ -115,7 +129,7 @@ def choseToEncrypt_manually():
 
 
 def choseToDecrypt_manually():
-    os.system('cls')
+    clearSrc()
     print('''--------------------------------------------------------------------
 |                Decryption Services - Manual Mode                 |
 --------------------------------------------------------------------
@@ -124,7 +138,7 @@ def choseToDecrypt_manually():
     obj = Summon()
     isValid = obj.validateKeys(userKeys)
     if isValid == False:
-        os.system("color C")
+        color('C')
         print("\nError: Invalid Keys\n\nPress any key to continue...")
         input()
         return
@@ -135,7 +149,7 @@ def choseToDecrypt_manually():
     input("\n\nPress enter to continue...")
 
 def chooseToEncrypt_file():
-    os.system('cls')
+    clearSrc()
     print('''--------------------------------------------------------------------
 |                Encryption Services - File Mode                   |
 --------------------------------------------------------------------
@@ -163,7 +177,7 @@ Selected file: ''', end='')
 
 
 def chooseToDecrypt_file():
-    os.system('cls')
+    clearSrc()
     print('''--------------------------------------------------------------------
 |                Decryption Services - File Mode                   |
 --------------------------------------------------------------------
@@ -172,7 +186,7 @@ def chooseToDecrypt_file():
     obj = Summon()
     isValid = obj.validateKeys(userKeys)
     if isValid == False:
-        os.system("color C")
+        color('C')
         print("\nError: Invalid Keys\n\nPress any key to continue...")
         input()
         return
@@ -199,74 +213,83 @@ Selected file: ''', end='')
 #******************************************** Main Program Starts ****************************************************
 
 while True:
-    os.system('cls')
-    os.system('color E')
+    clearSrc()
+    color('E')
     print('''--------------------------------------------------------------------
 |                             Welcome                              |
 --------------------------------------------------------------------
 ''')
-    choice1 = int(input('''Available Services:
+    choice1 = input('''Available Services:
     
     Press 1: To Encrypt
     Press 2: To Decrypt
 
     Press 0: To Exit
     
-    Enter your choice here: '''))
+    Enter your choice here: ''').strip()
 
-    if choice1 == 0:
-        os.system('cls')
+    if choice1 == '0':
+        clearSrc()
+        color('7')
         break
 
-    elif choice1 == 1:
+    elif choice1 == '1':
         while True:
-            os.system('cls')
-            os.system('color B')
+            clearSrc()
+            color('B')
             print('''--------------------------------------------------------------------
 |                       Encryption Services                        |
 --------------------------------------------------------------------
 ''')
-            choice2 = int(input('''Supported Modes:
+            choice2 = input('''Supported Modes:
     
     Press 1: To enter message manually
     Press 2: To select a text file
 
     Press 0: To get back to the Main Menu
     
-    Enter your choice here: '''))
-            if choice2 == 0:
+    Enter your choice here: ''').strip()
+
+            if choice2 == '0':
                 break
-            elif choice2 == 1:
+            elif choice2 == '1':
                 choseToEncrypt_manually()
-            elif choice2 == 2:
+            elif choice2 == '2':
                 chooseToEncrypt_file()
             else:
-                print("Error! Couldn't recoganize your choice. Try again.")
+                print("\n    Error! Couldn't recoganize your choice. Try again.", end="")
+                color('C')
+                input()
     
-    elif choice1 == 2:
+    elif choice1 == '2':
         while True:
-            os.system('cls')
-            os.system('color A')
+            clearSrc()
+            color('A')
             print('''--------------------------------------------------------------------
 |                       Decryption Services                        |
 --------------------------------------------------------------------
 ''')
-            choice2 = int(input('''Supported Modes:
+            choice2 = input('''Supported Modes:
     
     Press 1: To enter message manually
     Press 2: To select a text file
 
     Press 0: To get back to the Main Menu
     
-    Enter your choice here: '''))
-            if choice2 == 0:
+    Enter your choice here: ''').strip()
+
+            if choice2 == '0':
                 break
-            elif choice2 == 1:
+            elif choice2 == '1':
                 choseToDecrypt_manually()
-            elif choice2 == 2:
+            elif choice2 == '2':
                 chooseToDecrypt_file()
             else:
-                print("Error! Couldn't recoganize your choice. Try again.")
+                print("\n    Error! Couldn't recoganize your choice. Try again.", end="")
+                color('C')
+                input()
 
     else:
-        print("Error! Couldn't recoganize your choice. Try again.")
+        print("\n    Error! Couldn't recoganize your choice. Try again.", end="")
+        color('C')
+        input()
