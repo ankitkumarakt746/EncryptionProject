@@ -18,7 +18,7 @@ class Encryption:
 
     def encrypt(self, currChar):
         newChar = ""
-        if currChar.isalpha() and (currChar in self.alphabetUC or currChar in self.alphabetLC):
+        if currChar in self.alphabetUC or currChar in self.alphabetLC:
             if currChar.islower():
                 idx = self.alphabetLC.index(currChar)
                 newChar = self.shiftedAlphabetLC[idx]
