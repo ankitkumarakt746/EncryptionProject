@@ -5,11 +5,11 @@ Requirements:
 1. Python 3
 2. Tkinter library
 
-If you don't have Tkinter installed then, to install use:
-For Windows OS:
-  command> pip install tk
-For RedHat OS:
-  command$ sudo dnf install python-tkinter
+If you don't have Tkinter installed then, to install use:   
+For Windows OS:   
+  command> pip install tk   
+For RedHat OS:   
+  command$ sudo dnf install python-tkinter   
 
 In the main menu it provides two services i.e. encryption and decryption. Each service operates further in two different modes i.e. manual and file mode. Upon encryption, a 24 digit unique key is generated and is required for decryption in future. Without the key, the data can't be encrypted. Also, there are 2.49 quadrillion key combinations that make it hard to break by brute-forcing.
 
